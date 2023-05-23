@@ -1,7 +1,9 @@
+const decodeToken = require("../middlewares/decodeToken.js");
 var User = require("../models/userModel.js");
+const jwt = require("jsonwebtoken");
 // POST
 const addInvoice = async (req, res) => {
-  const userId = req.headers.userid;
+  const userId = decodeToken(req)
   const invoice = { ...req.body };
   try {
     const result = await User.updateOne(
@@ -20,8 +22,8 @@ const addInvoice = async (req, res) => {
 };
 // GET
 const getInvoices = async (req, res) => {
+  const userId = decodeToken(req)
   try {
-    const userId = req.headers.userid;
     const user = await User.findById(userId);
     if (!user) {
       res.status(404).send("User not found", userId);
@@ -35,7 +37,7 @@ const getInvoices = async (req, res) => {
 };
 // GET
 const getEditInvoice = async (req, res) => {
-  const userId = req.headers.userid;
+  const userId = decodeToken(req)
   const invoiceId = req.params.invoiceId;
   try {
     const user = await User.findById(
@@ -55,7 +57,7 @@ const getEditInvoice = async (req, res) => {
 };
 // PUT
 const putInvoice = async (req, res) => {
-  const userId = req.headers.userid;
+  const userId = decodeToken(req)
   const invoiceId = req.params.invoiceId;
   const updateInvoice = { ...req.body };
   try {
@@ -74,7 +76,7 @@ const putInvoice = async (req, res) => {
 };
 // DELETE
 const deleteInvoice = async (req, res) => {
-  const userId = req.headers.userid;
+  const userId = decodeToken(req)
   const invoiceId = req.params.invoiceId;
   try {
     const result = await User.updateOne(

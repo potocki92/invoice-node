@@ -58,24 +58,26 @@ const registerUser = (req, res) => {
 };
 
 // GET
+
 const getUser = async (req, res) => {
   try {
-    const userId = req.headers.userid;
-    const user = await User.findById(userId);
-    if (!user) {
-      res.status(404).send("User not found");
-      return;
+    const userId = decodeToken(req)
+    const user = await User.findById(userId)
+    if(!user) {
+      res.status(404).send("User not found")
+      return
     }
-    res.json(user.user);
-  } catch (error) {
+
+    res.json(user.user)
+  }catch(error) {
     console.error(error);
-    res.status(500).send("Internal server error");
+    res.status(500).send("Internal server error")
   }
-};
+}
 
 // PUT
 const putUser = async (req, res) => {
-  const userId = req.headers.userid;
+  const userId = decodeToken(req)
   const updateUser = { ...req.body };
   console.log(userId, updateUser);
   try {

@@ -1,5 +1,4 @@
 const express = require("express");
-const jwt = require("jsonwebtoken");
 const {
   loginUser,
   registerUser,
@@ -23,26 +22,9 @@ const {
   getEditInvoice,
   putInvoice,
 } = require("./controllers/invoiceController.js");
+const authenticateToken = require("./middlewares/authMiddleware.js");
 const router = express.Router();
 
-// Middleware for verifying JWT token
-const authenticateToken = (req, res, next) => {
-  const authHeader = req.headers["authorization"];
-  const token = authHeader && authHeader.split(" ")[1];
-
-  if (token == null) {
-    return res.sendStatus(401);
-  }
-
-  jwt.verify(token, process.env.JWT_SECRET, (err, user) => {
-    if (err) {
-      return res.sendStatus(403);
-    }
-
-    res.user = user;
-    next();
-  });
-};
 /* 
 AUTHENTICATION USER 
 */
