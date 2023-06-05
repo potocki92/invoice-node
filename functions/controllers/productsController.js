@@ -1,8 +1,9 @@
+const decodeToken = require("../middlewares/decodeToken.js");
 var User = require("../models/userModel.js");
 
 // POST
 const addProduct = async (req, res) => {
-  const userId = req.headers.userid;
+  const userId = decodeToken(req)
   const product = { ...req.body };
   console.log(id, product);
   try {
@@ -24,7 +25,7 @@ const addProduct = async (req, res) => {
 // GET
 const getProducts = async (req, res) => {
   try {
-    const userId = req.headers.userid;
+    const userId = decodeToken(req)
     const user = await User.findById(userId);
     if (!user) {
       res.status(404).send("User not found");
@@ -39,7 +40,7 @@ const getProducts = async (req, res) => {
 
 // DELETE
 const deleteProduct = async (req, res) => {
-  const userId = req.headers.userid;
+  const userId = decodeToken(req)
   const productId = req.params.productId;
   try {
     const result = await User.updateOne(
