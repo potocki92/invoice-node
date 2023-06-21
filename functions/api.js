@@ -13,9 +13,7 @@ const CLUSTER_NAME_FROM_MONGODB = process.env.CLUSTER_NAME_FROM_MONGODB;
 const DATABASE_NAME = process.env.DATABASE_NAME;
 
 const uri =
-  `mongodb+srv://${USERNAME_FROM_MONGODB}:` +
-  encodeURIComponent(PASSWORD_FROM_MONGODB) +
-  `@${CLUSTER_NAME_FROM_MONGODB}.zsrttvb.mongodb.net/${DATABASE_NAME}`;
+  `mongodb+srv://satanista:satanista123@cluster0.zsrttvb.mongodb.net/invoices_database`;
 
 // Create an instance of the Express app
 const app = express();
