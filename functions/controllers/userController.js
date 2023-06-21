@@ -1,3 +1,4 @@
+const decodeToken = require("../middlewares/decodeToken.js");
 const User = require("../models/userModel.js");
 const jwt = require("jsonwebtoken");
 // Login User
@@ -13,8 +14,6 @@ const loginUser = (req, res) => {
           expiresIn: "1h",
         }
       );
-
-      res.json({ token, JWT_SECRET: process.env.JWT_SECRET });
       if (password === user.user.password) {
         res.json({ message: "Login Successful", user: user, token });
       } else {
@@ -62,7 +61,7 @@ const registerUser = (req, res) => {
 // GET
 const getUser = async (req, res) => {
   try {
-    const userId = req.headers.userid;
+    const userId = decodeToken(req)
     const user = await User.findById(userId);
     if (!user) {
       res.status(404).send("User not found");

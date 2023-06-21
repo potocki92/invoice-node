@@ -1,3 +1,4 @@
+const decodeToken = require("../middlewares/decodeToken.js");
 var User = require("../models/userModel.js");
 
 // POST
