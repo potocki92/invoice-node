@@ -15,8 +15,8 @@
   },
   "scripts": {
     
-    "start": "node functions/api.js",
-    "build": "netlify deploy --prod"
+ "start": "./node_modules/.bin/netlify-lambda serve src",
+    "build": "./node_modules/.bin/netlify-lambda build src"
   },
   "repository": {
     "type": "git",
