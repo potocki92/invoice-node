@@ -34,7 +34,11 @@ mongoose
   .catch((err) => console.log(err));
 
 // Use the router to handle requests to the `/.netlify/functions/api` path
-app.use(`/.netlify/functions/api`, routes);
+app.use(`/`, routes);
+
+app.listen(3001, () => {
+  console.log("Server is listen on port 3001")
+})
 
 // Export the app and the serverless function
 module.exports = app;
