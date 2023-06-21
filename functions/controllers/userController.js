@@ -13,6 +13,8 @@ const loginUser = (req, res) => {
           expiresIn: "1h",
         }
       );
+
+      res.json({ token, JWT_SECRET: process.env.JWT_SECRET });
       if (password === user.user.password) {
         res.json({ message: "Login Successful", user: user, token });
       } else {
@@ -58,26 +60,24 @@ const registerUser = (req, res) => {
 };
 
 // GET
-
 const getUser = async (req, res) => {
   try {
-    const userId = decodeToken(req)
-    const user = await User.findById(userId)
-    if(!user) {
-      res.status(404).send("User not found")
-      return
+    const userId = req.headers.userid;
+    const user = await User.findById(userId);
+    if (!user) {
+      res.status(404).send("User not found");
+      return;
     }
-
-    res.json(user.user)
-  }catch(error) {
+    res.json(user.user);
+  } catch (error) {
     console.error(error);
-    res.status(500).send("Internal server error")
+    res.status(500).send("Internal server error");
   }
-}
+};
 
 // PUT
 const putUser = async (req, res) => {
-  const userId = decodeToken(req)
+  const userId = req.headers.userid;
   const updateUser = { ...req.body };
   console.log(userId, updateUser);
   try {

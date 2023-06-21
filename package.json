@@ -14,7 +14,8 @@
     "serverless-http": "^1.10.1"
   },
   "scripts": {
-    "build": "netlify deploy --prod"
+    "build": "netlify deploy --prod",
+    "start": "node functions/api.js"
   },
   "repository": {
     "type": "git",
